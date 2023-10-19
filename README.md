@@ -1,2 +1,2 @@
-# Oracle_Study
+# Oracle_Practice
 Just Oracle Study
