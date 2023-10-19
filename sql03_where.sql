@@ -89,3 +89,13 @@ select empno, ename, job, sal
 from emp
 where job <> 'CLERK' and job <> 'ANALYST' and job <> 'MANAGER'
 order by empno;
+
+select ename, job , sal , nvl(comm, 0) as 보너스 , sal + nvl(comm, 0) as 총급여
+from emp
+order by 총급여 desc;
+
+select ename, job 
+from emp
+where job = 'SALESMAN'
+order by ename;
+
