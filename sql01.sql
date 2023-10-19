@@ -20,3 +20,4 @@ SELECT * FROM DEPT;
 SELECT * FROM emp;
 
 select * from SALGRADE;
+
