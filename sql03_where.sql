@@ -70,6 +70,12 @@ from emp
 where job = 'CLERK' or job = 'MANAGER'
 order by job, sal;
 
+select job,ename,sal
+from emp
+where job in ('CLERK', 'MANAGER')
+order by job, sal;
+
+
 --직원 테이블에서 20번 부서에서 근무하는 CLERK의
 --모든 정보를 검색
 select *
@@ -87,15 +93,59 @@ order by empno;
 
 select empno, ename, job, sal
 from emp
+where job not in ('CLERK' , 'ANALYST' , 'MANAGER')
+order by empno;
+
+select empno, ename, job, sal
+from emp
 where job <> 'CLERK' and job <> 'ANALYST' and job <> 'MANAGER'
 order by empno;
 
-select ename, job , sal , nvl(comm, 0) as 보너스 , sal + nvl(comm, 0) as 총급여
-from emp
-order by 총급여 desc;
+-- 숫자 타입 뿐만 아니라, 문자열과 날짜 타입도 대소 비교가 가능하다.
+-- ex) 'a' < 'b' , 2023/10/19 < 2023/10/20 
 
-select ename, job 
+-- '1987/01/01' 이후에 입사한 직원들의 레코드를 출력.
+-- 정렬 순서 입사일 오름차순
+select *
 from emp
-where job = 'SALESMAN'
+where hiredate > '87/01/01' 
+order by hiredate;
+-- 오라클은 hiredate 컬럼의 값(날짜 타입)을 문자열 타입으로 변환해서
+-- '1987/01/01' 문자열과 크기 비교를 수행 - 암시적 타입 변환.
+select *
+from emp
+where hiredate > to_date('1987/01/01') --문자열을 날짜 타입으로 변환해주는 함수
+order by hiredate;
+-- to_date(문자열) : 문자열을 날짜 타입으로 변환 하는 함수.
+
+-- 특정 문자열로 시작하거나, 특정 문자열이 포함된 값을 찾는 쿼리 - like
+select ename
+from emp
+where ename like 'A%';
+
+--like 검색에서 사용되는 wildcard
+--1) %
+--2) _ 밑줄이 있는 자리에 어떤 문자가 있어도 됨.
+select *
+from emp
+where job like '_LERK'
 order by ename;
+
+select *
+from emp;
+
+select *
+from emp
+where job like '%E%'
+order by job;
+
+-- 30번 부서에서 근무하고 직무에 'SALES'를 포함하는 직원들의
+-- 사번, 이름, 급여, 수당, 부서번호, 직무를 출력
+-- 정렬 순서 : 사번.
+
+select empno, ename, sal, comm, deptno, job
+from emp
+where deptno = 30 and job like '%SALES%'
+order by empno;
+
 
