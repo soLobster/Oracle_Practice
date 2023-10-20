@@ -124,16 +124,22 @@ select job as 직무 , count(job) as 사원수
 from emp
 where job != 'PRESIDENT'
 group by job
-having count(job) > 3
+having count(job) >= 3
 order by 직무;
 
 -- 입사연도, 부서번호, 입사연도별 부서별 사원수 검색
 -- 1980년은 검색에서 제외
 -- 연도별 부서별 사원수가 2명 이상인 경우만 선택.
 -- 연도별, 부서별 오름차순
-select to_char(hiredate,'yyyy') as 연도별 , count(*) as 직원수, deptno as 부서번호
+select to_char(hiredate,'yyyy') as 연도별 , deptno as 부서,count(*) as 직원수 
 from emp
 where to_char(hiredate,'yyyy') != '1980'
-group by to_char(hiredate,'yyyy'), job, deptno
-having count(to_char(hiredate,'yyyy')) >= 2
-order by 연도별, 부서번호
+group by to_char(hiredate,'yyyy'), deptno
+having count(*) >= 2
+order by 연도별, 부서;
+
+select to_char(hiredate,'yyyy') as 연도별 , deptno as 부서,count(*) as 직원수 
+from emp
+group by to_char(hiredate,'yyyy'), deptno
+order by 연도별, 부서;
+
