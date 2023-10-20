@@ -92,7 +92,7 @@ from emp
 where hiredate > (select hiredate
                     from emp
                     where ename = 'ALLEN')
-                    order by hiredate desc;
+order by hiredate desc;
 -- 매니저가 KING인 직원들의 사번, 이름, 매니저 사번을 검색.
 select empno, ename, mgr
 from emp
@@ -111,3 +111,43 @@ from emp
 where deptno = (select deptno
                 from dept
                 where loc = 'CHICAGO');
+
+-- 단일행 서브쿼리: 서브쿼리의 결과 행이 1개 이하인 경우.
+-- 단일행 서브쿼리는 단순 비교 (=, !=, >, >=, <, <=)를 할 수 있음.
+-- 다중행 서브쿼리: 서브쿼리의 결과 행이 2개 이상인 경우.
+-- 다중행 서브쿼리는 단순 비교를 할 수 없음.
+-- 다중행 서브쿼리에서는 in, any, all과 같은 키워드를 함께 사용.
+
+
+-- 각 부서에서 급여를 가장 많이 받는 직원의 레코드.(모든 컬럼) 검색.
+select *
+from emp
+where (deptno, sal) in ( select deptno, max(sal)
+                         from emp
+                         group by deptno);
+
+select *
+from emp
+where (deptno, sal) in ( select deptno, min(sal)
+                         from emp
+                         group by deptno);
+
+-- 다중행 서브쿼리에서 any vs all;
+-- 1) any: 여러개 중에서 적어도 하나.  or
+-- 2) all: 여러개 모두 (전부)        and
+select *
+from emp
+where sal < all (
+                select sal 
+                from emp 
+                where deptno = 10
+                );
+                
+                
+select *
+from emp
+where sal < any (
+                select sal 
+                from emp 
+                where deptno = 10
+                );
