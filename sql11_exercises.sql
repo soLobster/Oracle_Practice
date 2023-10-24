@@ -37,13 +37,13 @@ on d.location_id = l.location_id;
 -- 6. 2008년에 입사한 직원들의 last_name을 검색.
 select last_name
 from employees
-where to_char(hire_date,'yy') = '08';
+where to_char(hire_date,'yyyy') = '2008';
 -- 7. 2008년에 입사한 직원들의 부서 이름과 부서별 인원수 검색.
 select d.department_name as "부서 이름", count(*) as "부서별 인원수"
 from employees e
 join departments d
 on e.department_id = d.department_id
-where to_char(hire_date, 'yy') = '08'
+where to_char(hire_date, 'yyyy') = '2008'
 group by d.department_name;
 -- 8. 2008년에 입사한 직원들의 부서 이름과 부서별 인원수 검색. 
 --    단, 부서별 인원수가 5명 이상인 경우만 출력.
@@ -51,7 +51,7 @@ select d.department_name as "부서 이름", count(*) as "부서별 인원수"
 from employees e
 join departments d
 on e.department_id = d.department_id
-where to_char(hire_date, 'yy') = '08' 
+where to_char(hire_date, 'yyyy') = '2008' 
 group by d.department_name
 having count(*) >= 5;
 -- 9. 부서번호, 부서별 급여 평균을 검색. 소숫점 한자리까지 반올림 출력. null 제외.
