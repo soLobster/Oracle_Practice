@@ -188,6 +188,11 @@ insert into 테이블이름 values(값,....);
     constraint ex_emp2_deptno_fk foreign key (deptno) references ex_dept (deptno)
     );
  
+ select *
+ from ex_emp2;
+ 
+ desc ex_emp2;
+ 
  desc students; --describe
  desc DEPT;
  desc EMP;
