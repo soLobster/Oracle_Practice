@@ -10,41 +10,44 @@ create table GYM_MEMBER (
      birthday date,
      address varchar2(100 char),
      join_time timestamp default systimestamp,
-     modified_time timestamp default systimestamp,
+     expire_date timestamp default systimestamp,
+     -- todo modified_time을 expire_date로 바꾸고 join_time에서 특정 날짜를 더한 날이 셋 되어야 한다.
      constraint gym_member_pk primary key(id)
  );
  
  
- alter table GYM_MEMBER ADD T_ID number(3);
+ alter table GYM_MEMBER ADD t_id number(3);
+ 
  alter table GYM_MEMBER
  add constraint GYM_MEMBER_T_ID_FK
- foreign key (T_ID) REFERENCES GYM_TRAINER (T_ID);
+ foreign key (t_id) REFERENCES GYM_TRAINER (t_id);
  
  
- alter table GYM_MEMBER add MEMBERSHIPCODE number(5);
+ alter table GYM_MEMBER add membership_code number(3);
  
  alter table GYM_MEMBER
  add constraint GYM_MEMBER_FK
- foreign key (MEMBERSHIPCODE) REFERENCES MEMBERSHIP (MEMBERSHIPCODE);
+ foreign key (membership_code) REFERENCES MEMBERSHIP (membership_code);
  
  
- alter table GYM_MEMBER add PT_CODE number(5);
+ alter table GYM_MEMBER add pt_code number(5);
  
  alter table GYM_MEMBER
  add constraint GYM_MEMBER_PY_FK
- foreign key (PT_CODE) REFERENCES PT (PT_CODE);
+ foreign key (pt_code) REFERENCES PT (pt_code);
  
 commit;
  
 commit;
 
+drop table membership;
 
 create table MEMBERSHIP(
-    MemberShipCode number(3) not null,
-    MemberShipNumOfDays number(2) not null,
-    MemberShipPrice number(8) not null,
-    MemberShipCategory varchar2(10) not null,
-    constraint membership_pk primary key(MemberShipCode)
+    membership_code number(3) not null,
+    membership_numofdays number(5) not null,
+    membership_price number(9) not null,
+    membership_category varchar2(300) not null,
+    constraint membership_pk primary key(membership_code)
     );
     
 commit;
@@ -100,7 +103,7 @@ where membershipcode = '1';
 create table PT(
  pt_code number(5),
  t_id number(3),
- pt_price number(8),
+ pt_price number(9),
  pt_time number(3),
  constraint PT_pk primary key(pt_code),
  constraint PT_fk foreign key (t_id) references GYM_TRAINER (t_id)
@@ -132,3 +135,4 @@ insert into PT
 
  
  commit;   
+ 
