@@ -49,3 +49,61 @@ values (8, '최요가', '01044444321', '여', 'choiyoga@itwill.com', '2800000', 
 
 
 commit;
+
+
+/*
+pt 테이블 생성.
+*/
+
+
+create table PT(
+ pt_code number(5),
+ t_id number(3),
+ pt_price number(10),
+ pt_time number(3),
+ pt_category varchar2(300 char),
+ constraint PT_pk primary key(pt_code),
+ constraint PT_fk foreign key (t_id) references GYM_TRAINER (t_id)
+ );
+ 
+ commit;
+ 
+insert into PT
+ values (1, 1, 400000, 10, '헬스 입문자 1대1 PT 10회');
+ 
+insert into PT
+ values (2, 2, 200000, 5, '헬스 입문자 1대1 PT 5회');
+ 
+insert into PT
+ values (3, 3, 100000, 3, '헬스 입문자 1대1 PT 3회');
+ 
+ insert into PT
+ values (4, 5, 600000, 12, '요가 1대1 수업 12회');
+ 
+ insert into PT
+ values (5, 6, 360000, 8, '요가 1대1 수업 8회');
+ 
+ insert into PT
+ values(6, 4, 200000, 10, '헬스 입문자 단체 PT 10회');
+ 
+ insert into PT
+ values(7, 7, 300000, 10, '요가 단체 수업 10회');
+ 
+ insert into PT
+ values(8, 8, 200000, 5, '요가 단체 수업 5회');
+
+ 
+ commit;   
+ 
+ALTER TABLE PT
+ADD CONSTRAINT PT_fk FOREIGN KEY (pt_code) REFERENCES GYM_MEMBER (pt_code);
+
+ 
+ select pt_category
+ from pt
+ order by pt_code;
+ 
+ select g.t_id, g.t_name, p.pt_price, p.pt_code, p.pt_time, p.pt_category
+ from gym_trainer g
+ join pt p
+ on g.t_id = p.t_id;

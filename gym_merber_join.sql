@@ -36,6 +36,21 @@ create table GYM_MEMBER (
  add constraint GYM_MEMBER_PY_FK
  foreign key (pt_code) REFERENCES PT (pt_code);
  
+ALTER TABLE GYM_MEMBER
+ADD CONSTRAINT PK_pt_code 
+PRIMARY KEY (pt_code);
+
+ 
+ 
+ UPDATE GYM_MEMBER
+SET pt_code = 1
+WHERE pt_code IS NULL;
+
+UPDATE GYM_MEMBER
+SET pt_code = NULL;
+
+
+ 
 commit;
  
 commit;
@@ -97,42 +112,7 @@ VALUES (13 , 7, 10000, '일주일 체험권');
 
 delete from membership
 where membershipcode = '1';
+ 
 
-
-
-create table PT(
- pt_code number(5),
- t_id number(3),
- pt_price number(9),
- pt_time number(3),
- constraint PT_pk primary key(pt_code),
- constraint PT_fk foreign key (t_id) references GYM_TRAINER (t_id)
- );
- 
- commit;
- alter table PT add PT_CATEGORY varchar2(100 char);
- 
-insert into PT
- values (1, 3, 400000, 10, '헬스 입문자 1대1 PT 10회');
- 
- delete from pt
-where pt_code = '1';
- 
-insert into PT
- values (2, 4, 200000, 5, '헬스 입문자 1대1 PT 5회');
- 
-insert into PT
- values (3, 5, 100000, 3, '헬스 입문자 1대1 PT 3회');
- 
- insert into PT
- values (4, 7, 500000, 12, '필라테스 1대1 PT 12회');
- 
- insert into PT
- values (5, 10, 360000, 8, '필라테스 1대1 PT 8회');
- 
- insert into PT
- values(6, 6, 200000, 10, '헬스 입문자 단체 PT 10회');
-
- 
- commit;   
+select * from PT where PT_CODE = '4';
  
