@@ -1,0 +1,58 @@
+--------------------------------------------------------
+--  DDL for Table PT
+--------------------------------------------------------
+
+  CREATE TABLE "SCOTT"."PT" 
+   (	"PT_CODE" NUMBER(5,0), 
+	"T_ID" NUMBER(3,0), 
+	"PT_PRICE" NUMBER(10,0), 
+	"PT_TIME" NUMBER(3,0), 
+	"PT_CATEGORY" VARCHAR2(300 CHAR)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index PT_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SCOTT"."PT_PK" ON "SCOTT"."PT" ("PT_CODE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger PT_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SCOTT"."PT_TRG" 
+BEFORE INSERT ON PT 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    NULL;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "SCOTT"."PT_TRG" ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PT
+--------------------------------------------------------
+
+  ALTER TABLE "SCOTT"."PT" ADD CONSTRAINT "PT_PK" PRIMARY KEY ("PT_CODE")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PT
+--------------------------------------------------------
+
+  ALTER TABLE "SCOTT"."PT" ADD CONSTRAINT "PT_FK" FOREIGN KEY ("T_ID")
+	  REFERENCES "SCOTT"."GYM_TRAINER" ("T_ID") ENABLE;
