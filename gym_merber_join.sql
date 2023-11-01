@@ -18,11 +18,6 @@ create table GYM_MEMBER (
  
  alter table GYM_MEMBER ADD t_id number(3);
  
- alter table GYM_MEMBER
- add constraint GYM_MEMBER_T_ID_FK
- foreign key (t_id) REFERENCES GYM_TRAINER (t_id);
- 
- 
  alter table GYM_MEMBER add membership_code number(3);
  
  alter table GYM_MEMBER
@@ -49,7 +44,8 @@ WHERE pt_code IS NULL;
 UPDATE GYM_MEMBER
 SET pt_code = NULL;
 
-
+delete from gym_member 
+where id = '1';
  
 commit;
  

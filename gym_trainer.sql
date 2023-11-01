@@ -93,7 +93,7 @@ insert into PT
  values(8, 8, 200000, 5, '요가 단체 수업 5회');
 
  
- commit;   
+
  
 ALTER TABLE PT
 ADD CONSTRAINT PT_fk FOREIGN KEY (pt_code) REFERENCES GYM_MEMBER (pt_code);
@@ -103,7 +103,17 @@ ADD CONSTRAINT PT_fk FOREIGN KEY (pt_code) REFERENCES GYM_MEMBER (pt_code);
  from pt
  order by pt_code;
  
- select g.t_id, g.t_name, p.pt_price, p.pt_code, p.pt_time, p.pt_category
+ select g.t_id, g.t_name, p.pt_code, p.pt_price, p.pt_time, p.pt_category
  from gym_trainer g
  join pt p
  on g.t_id = p.t_id;
+ 
+ select m.name, m.phone, m.gender, p.pt_category, t.t_name
+ from gym_member m
+ join pt p
+ on m.pt_code = p.pt_code
+ join gym_trainer t
+ on p.t_id = t.t_id;
+ 
+ 
+  commit;   
