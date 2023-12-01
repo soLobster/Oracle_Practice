@@ -9,3 +9,10 @@ create table users (
 );
 
 commit;
+
+select * from users;
+
+delete from users where id = 5;
+
+
+select * from USERS where USERID like 'admin' and PASSWORD like '1234';
