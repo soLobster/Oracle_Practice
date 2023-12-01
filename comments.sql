@@ -8,3 +8,8 @@ create table comments (
     constraint comments_pk primary key (id),
     constraint comments_fk FOREIGN key (postid) REFERENCES posts(id)
 );
+
+
+insert into comments (postid, writer, comment_text) VALUES (1, 'admin', '댓글 입력 테스트');
+
+commit;
